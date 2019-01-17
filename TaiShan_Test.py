@@ -1,9 +1,13 @@
 #!/usr/bin/python
 import re
+import time
 import os,cmd,sys
 import subprocess
 
+import pdb
+
 envirn_path=os.getcwd()
+pkg_path=os.path.join(os.getcwd(),'pkg')
 cpu_path=os.path.join(os.getcwd(),'cpu')
 mem_path=os.path.join(os.getcwd(),'mem')
 fio_path=os.path.join(os.getcwd(),'fio')
@@ -76,10 +80,40 @@ class TaiShan_Test(cmd.Cmd):
         print output
 
     def do_network(self, args):
-        print("network test.")
+        #pdb.set_trace()
+        os.chdir(net_path)
+        content = re.findall("server", args)
+        if content:
+           print "ready to test server"
+           for i in args.split():  
+               if re.match('server', i):
+                 server = i.split('=')[1]
+           process = subprocess.Popen('./net_test.sh --server=%s 2>&1' % ( server), stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+           (output, exitcode) = process.communicate()
+
+        content = re.findall("client", args)
+        if content :
+          print "ready to test server"
+          for i in args.split():
+            if re.match('time', i):
+                time = i.split('=')[1]
+            if re.match('parallel', i):
+                parallel = i.split('=')[1]
+            if re.match('host', i):
+                host = i.split('=')[1]
+            if re.match('client', i):
+                client = i.split('=')[1]
+            if re.match('interval', i):
+                interval = i.split('=')[1]
+          process = subprocess.Popen('./net_test.sh --client=%s --host=%s --parallel=%s--time=%s --interval=%s 2>&1' % ( client, host, parallel, time, interval), stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)   
+          (output, exitcode) = process.communicate()
+        print output
 
     def help_network(self):
-        print "\nThis function is developing ... \n"
+        os.chdir(net_path)
+        process = subprocess.Popen('./net_test.sh -h 2>&1', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        (output, exitcode) = process.communicate()
+        print output
 
     def emptyline(self):
         pass
@@ -88,7 +122,19 @@ class TaiShan_Test(cmd.Cmd):
         line = line.lower()
         return line
 
+def env_check():
+    os.chdir(pkg_path)
+    process = subprocess.Popen('./env_check.sh 2>&1', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    (output, exitcode) = process.communicate()
+    print output
+
+
 if __name__ == "__main__":
+    print "server test environment checking ... "
+    time.sleep(1)
+    env_check()
+    time.sleep(1)
+    print "server test environment checking ok \n"
     TaiShan_Test().cmdloop()
 
 

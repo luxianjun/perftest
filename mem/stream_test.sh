@@ -19,8 +19,8 @@ Options:
 Example:
 
     mem version=1  core_num=1   test_num=5
-    mem version=1  core_num=1   test_num=5 
-    mem version=2  core_num=64  test_num=5
+    mem version=1  core_num=64   test_num=5 
+    mem version=2  core_num=1  test_num=5
     mem version=2  core_num=64  test_num=5
 
 EOF
@@ -49,7 +49,6 @@ do
 done
 
 
-echo "---$version---$core_num---$test_num"
 ###################################################################################
 # Exectue stream mem test
 ###################################################################################
