@@ -8,6 +8,7 @@ import pdb
 
 envirn_path=os.getcwd()
 pkg_path=os.path.join(os.getcwd(),'pkg')
+ltp_path=os.path.join(os.getcwd(),'ltp')
 cpu_path=os.path.join(os.getcwd(),'cpu')
 mem_path=os.path.join(os.getcwd(),'mem')
 fio_path=os.path.join(os.getcwd(),'fio')
@@ -25,6 +26,24 @@ class TaiShan_Test(cmd.Cmd):
         print "speccpu2006 test" 
     def help_cpu(self):
         print "\nThis function is developing ... \n"
+
+    def do_ltp(self, args):
+        for i in args.split():
+            if re.match('runtime', i):
+                runtime = i.split('=')[1]
+
+        os.chdir(ltp_path)
+        print "ltp test"
+        process = subprocess.Popen('./testscripts/ltpstress.sh -n -t %s 2>&1' % ( runtime), stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        (output, exitcode) = process.communicate()
+        print output
+         
+    def help_ltp(self):
+        os.chdir(ltp_path)
+        process = subprocess.Popen('./ltp_test.sh -h 2>&1', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        (output, exitcode) = process.communicate()
+        print output
+
 
     def do_io(self, args):
         for i in args.split():
