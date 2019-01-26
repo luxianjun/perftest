@@ -44,7 +44,7 @@ else
         echo -e " firewalld inactive \n"
         exit 1
     else                                         
-        echo -e " firewalld cannot stop , stop it manually  \n"
+        echo -e " firewalld cannot stop , maybe execute cmd [systemctl stop firewalld] to stop it manully  \n"
         exit 2   
     fi 
 fi
