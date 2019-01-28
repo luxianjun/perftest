@@ -69,12 +69,14 @@ for i in `seq 1 $N`;do
 
     echo "Stream Version V$v Core$P Memory$M \n"
     if [ $P -eq 1 ];then
-        numactl -C 0 --localalloc ./stream $*
+        ./stream $*
+        #numactl -C 0 --localalloc ./stream $*
         sleep 10
     fi
 
     if [ $P -eq 64 ];then
-        numactl --cpunodebind=0,1,2,3 --localalloc ./stream $*
+        ./stream $*
+        #numactl --cpunodebind=0,1,2,3 --localalloc ./stream $*
         sleep 10
     fi
 
