@@ -3,19 +3,13 @@ import re
 import time
 import os,cmd,sys
 import subprocess
-import pdb
 
-#loc=0
-bench_test=''
 bench=['cpu','stream','fio','iperf','ltp']
 prj_path=os.getcwd()
 
 class TaiShan_Test(cmd.Cmd):
     intro = 'Welcome to the TaiShan shell.   Type help or ? to list commands.\n'
     prompt = '(TaiShan) '
-    __loc__ = 0
-    #global loc
-    global bench_test 
     file = None
     prj_path=os.getcwd()
  
@@ -48,17 +42,13 @@ class TaiShan_Test(cmd.Cmd):
     # ----- common performance commands -----
     def __com_process__(self, test_item, script_type, args):
         test_path = os.path.join( prj_path, test_item)
-        #print "test_item %s test_path %s" % (test_item, test_path)
-        #print "test_item args[0]:%s args[1]:%s" % (args[:loc],args[loc:] )
         os.chdir( test_path)
         if isinstance(args,list):
            para1=args[0]
            para2=args[1]
-           #print "list %s, para0:%s  para1:%s" % (args, para1, para2)
         else:
            para1=''
            para2=args
-           #print "list %s, para0:%s  para1:%s" % (args, para1, para2)
            
         process = subprocess.Popen('%s ./%s_test.%s %s 2>&1' % (para1, test_item, script_type, para2), stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)         
         (output, exitcode) = process.communicate()
@@ -66,26 +56,19 @@ class TaiShan_Test(cmd.Cmd):
 
     # ----- basic performance commands -----
     def do_stream(self, args):
-        #print "------loc------"
-        #print "loc:%d test_item args[0]:%s args[1]:%s" % (self.loc, args[:self.loc],args[self.endloc:] )
         self.__com_process__( 'stream', 'sh', args)
 
     def help_stream(self):
-        #print "loc:%d test_item args[0]:%s args[1]:%s" % (loc,args[:loc],args[loc:] )
         self.__com_process__( 'stream', 'sh', '-h')
 
     def do_fio(self, args):
-        #print "arguments : %s" % (args)
-        #print "loc:%d test_item args[0]:%s args[1]:%s" % (self.loc,args[:self.loc],args[self.endloc:] )
         self.__com_process__( 'fio', 'sh', args)
-        #self.__com_process__( 'fio', 'sh', args)
 
     def help_fio(self):
         self.__com_process__( 'fio', 'sh', '-h')
 
     def do_cpu(self, args):
         self.__com_process__( 'cpu', 'sh', args)
-        #self.__com_process__( 'cpu', 'py', args)
 
     def help_cpu(self):
         self.__com_process__( 'cpu', 'py', '-h')
@@ -97,15 +80,12 @@ class TaiShan_Test(cmd.Cmd):
         print "     cpu   all  -r 64\n"
 
     def do_ltp(self, args):
-        #self.__com_process__( 'ltp', 'sh', args[:self.loc],args[self.loc:])
         self.__com_process__( 'ltp', 'sh', args)
          
     def help_ltp(self):
         self.__com_process__( 'ltp', 'sh', '-h')
 
     def do_iperf(self, args):
-        #print "arguments : %s" % (args)
-        #print "loc:%d endloc:%d test_item args[0]:%s args[1]:%s" % (self.loc, self.endloc, args[:self.loc],args[self.endloc:] )
         self.__com_process__( 'iperf', 'sh', args)
 
     def help_iperf(self):
@@ -133,11 +113,8 @@ class TaiShan_Test(cmd.Cmd):
             if str_match != None :
                 self.loc = str_match.start()
                 self.endloc = str_match.end()
-                #print " =====str_match start loc %d and end loc %d "%( self.loc, str_match.end())
                 self.bench_test = str_search
         
-        #pdb.set_trace()
-        #print " cmd----bt:%s  loc:%d" %(self.bench_test, self.loc)
         return line
 
     def onecmd(self, line):
@@ -151,7 +128,6 @@ class TaiShan_Test(cmd.Cmd):
 
 	"""
         args_list=[]
-        #pdb.set_trace()
 	cmd, arg, line = self.parseline(line)
 	if not line:
 		return self.emptyline()
@@ -166,10 +142,8 @@ class TaiShan_Test(cmd.Cmd):
                 if cmd != 'help' and self.loc != 0:
                     args_list.append(line[:self.loc])
                     args_list.append(line[self.endloc:])
-                    #arg = line[self.endloc:]
                     arg=args_list
                     cmd = self.bench_test
-                #print " cmd----cmd:%s arg:%s loc:%d" %(cmd,arg,self.loc)
 		try:
 			func = getattr(self, 'do_' + cmd)
 		except AttributeError:
@@ -178,8 +152,6 @@ class TaiShan_Test(cmd.Cmd):
 
 if __name__ == "__main__":
     
-    #Taishan = TaiShan_Test()
-    #Taishan.cmdloop()
     TaiShan_Test().cmdloop()
 
 
