@@ -6,6 +6,7 @@
 #blksize=4k
 #runtime=10
 #filename=/dev/sdb
+arch=`uname -m`
 
 ###################################################################################
 # Usage
@@ -72,7 +73,7 @@ fi
 # Exectue fio test
 ###################################################################################
 #echo "===$*==="
-./fio $*
+./fio.${arch} $*
 #taskset -c 0-4 ./fio -name=fio_test -rw=$rw_type -bs=$blksize -runtime=$runtime -iodepth=64 -filename=$filename -ioengine=libaio -direct=1	
 #taskset -c 0-4 fio -name=iops -rw=randread -bs=4k -runtime=10 -iodepth=64 -filename=/dev/sda -ioengine=libaio -direct=1
 #taskset -c 0-4 fio -name=iops -rw=randwrite -bs=4k -runtime=10 -iodepth=64 -filename=/dev/sda -ioengine=libaio -direct=1

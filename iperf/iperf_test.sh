@@ -1,5 +1,7 @@
 #!/bin/bash
-./iperf $*
+arch=`uname -m`
+
+./iperf.${arch} $*
 
 
 

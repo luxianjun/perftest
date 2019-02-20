@@ -5,6 +5,8 @@
 version=1
 core_num=1
 test_num=5
+arch=`uname -m`
+max_core_num=`lscpu | grep "CPU(s)" | awk '{print $2}' | head -1`
 ###################################################################################
 # Usage
 ###################################################################################
@@ -58,26 +60,28 @@ function stream_test() {
 if [ $core_num -eq 1 ];then
    if [ $version -eq 1 ];then       
         echo ": streamv1core0"
-        numactl -C 0 --localalloc ./stream -v 1 -M 200M -P 1 -W 5
+        numactl -C 0 --localalloc ./stream.${arch} -v 1 -M 200M -P 1 -W 5
         sleep 10
    fi
 
    if [ $version -eq 2 ];then       
         echo ": streamv2core0"
-        numactl -C 0 --localalloc ./stream -v 2 -M 200M -P 1 -W 5
+        numactl -C 0 --localalloc ./stream.${arch} -v 2 -M 200M -P 1 -W 5
         sleep 10
    fi
 fi
-if [ $core_num -eq 64 ];then
+if [ $core_num == ${max_core_num}  ];then
    if [ $version -eq 1 ];then
-        echo ": streamv1core0-63"
-        numactl --cpunodebind=0,1,2,3 --localalloc ./stream -v 1 -M 200M -P 64 -W 5
+        echo ": streamv1core0-${max_core_num}"
+        #numactl --cpunodebind=0,1,2,3 --localalloc ./stream.${arch} -v 1 -M 200M -P 64 -W 5
+        numactl --localalloc ./stream.${arch} -v 1 -M 200M -P 64 -W 5
         sleep 10
   fi
 
   if [ $version -eq 2 ];then
-        echo ": streamv2core0-63"
-        numactl --cpunodebind=0,1,2,3 --localalloc ./stream -v 2 -M 200M -P 64 -W 5
+        echo ": streamv2core0-${max_core_num}"
+        #numactl --cpunodebind=0,1,2,3 --localalloc ./stream.${arch} -v 2 -M 200M -P 64 -W 5
+        numactl --localalloc ./stream.${arch} -v 2 -M 200M -P 64 -W 5
         sleep 10
   fi
 fi
