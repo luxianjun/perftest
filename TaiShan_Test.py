@@ -68,7 +68,7 @@ class TaiShan_Test(cmd.Cmd):
         self.__com_process__( 'fio', 'sh', '-h')
 
     def do_cpu(self, args):
-        self.__com_process__( 'cpu', '', args)
+        self.__com_process__( 'cpu', 'py', args)
 
     def help_cpu(self):
         self.__com_process__( 'cpu', 'py', '-h')
