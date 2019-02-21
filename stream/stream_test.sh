@@ -7,6 +7,8 @@
 #M=200M
 #W=0
 N=1
+arch=`uname -m`
+max_core_num=`lscpu | grep "CPU(s)" | awk '{print $2}' | head -1`
 ###################################################################################
 # Usage
 ###################################################################################
@@ -25,9 +27,9 @@ Options:
 Example:
 
     stream -v 1 -M 200M -P 1  
-    stream -v 1 -M 200M -P 64  
+    stream -v 1 -M 200M -P ${max_core_num}
     stream -v 2 -M 200M -P 1  
-    stream -v 2 -M 200M -P 64  
+    stream -v 2 -M 200M -P ${max_core_num}
 
 EOF
 }
@@ -69,13 +71,13 @@ for i in `seq 1 $N`;do
 
     echo "Stream Version V$v Core$P Memory$M \n"
     if [ $P -eq 1 ];then
-        ./stream $*
+        ./stream.${arch} $*
         #numactl -C 0 --localalloc ./stream $*
         sleep 10
     fi
 
-    if [ $P -eq 64 ];then
-        ./stream $*
+    if [ $P == ${max_core_num} ];then
+        ./stream.${arch} $*
         #numactl --cpunodebind=0,1,2,3 --localalloc ./stream $*
         sleep 10
     fi
