@@ -72,12 +72,7 @@ class TaiShan_Test(cmd.Cmd):
 
     def help_cpu(self):
         self.__com_process__( 'cpu', 'py', '-h')
-        print "Example:"
-        print "     cpu   462  -r 1"
-        print "     cpu   fp   -r 1"
-        print "     cpu   int  -r 1"
-        print "     cpu   all  -r 1"
-        print "     cpu   all  -r 64\n"
+        self.__com_process__( 'cpu', 'sh', '-h')
 
     def do_ltp(self, args):
         self.__com_process__( 'ltp', 'sh', args)
@@ -90,12 +85,6 @@ class TaiShan_Test(cmd.Cmd):
 
     def help_iperf(self):
         self.__com_process__( 'iperf', 'sh', '-h')
-        print "Example:"
-        print "   Server: "
-        print "     iperf -s -w 256k"
-        print "   Client:"
-        print "     iperf -c ip_addr -P 1 -t 100 -i 1 -w 256k"
-        print "     iperf -c ip_addr -P 4 -t 100 -i 1 -w 256k\n"
 
     def do_envcheck(self, args):
         self.__com_process__( 'envcheck', 'sh', args)
