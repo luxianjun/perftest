@@ -6,7 +6,7 @@
 #P=1
 #M=200M
 #W=0
-N=1
+#N=1
 arch=`uname -m`
 max_core_num=`lscpu | grep "CPU(s)" | awk '{print $2}' | head -1`
 ###################################################################################
@@ -38,49 +38,37 @@ EOF
 # Get all args
 ###################################################################################
 
-while test $# != 0
-do
-    case $1 in
-        --*=*) ac_option=`expr "X$1" : 'X\([^=]*\)='` ; ac_optarg=`expr "X$1" : 'X[^=]*=\(.*\)'` ; ac_shift=: ;;
-        -*) ac_option=$1 ; ac_optarg=$2; ac_shift=shift ;;
-        *) ac_option=$1 ; ac_shift=: ;;
-    esac
-
-    case ${ac_option} in
-        -v | --version) v=$ac_optarg ;;
-        -P | --parallelism) P=$ac_optarg ;;
-        -M ) M=$ac_optarg ;;
-        -W ) W=$ac_optarg ;;
-        -N ) N=$ac_optarg ;;
-        -h | --help) Usage ; exit 0 ;;
-        #*) Usage ; echo "Unknown option $1" ; exit 1 ;;
-        #*) Usage ; echo "Unknown option $1" ; exit 1 ;;
-    esac
-
-    ${ac_shift}
-    shift
-done
+#while test $# != 0
+#do
+#    case $1 in
+#        --*=*) ac_option=`expr "X$1" : 'X\([^=]*\)='` ; ac_optarg=`expr "X$1" : 'X[^=]*=\(.*\)'` ; ac_shift=: ;;
+#        -*) ac_option=$1 ; ac_optarg=$2; ac_shift=shift ;;
+#        *) ac_option=$1 ; ac_shift=: ;;
+#    esac
+#
+#    case ${ac_option} in
+#        -v | --version) v=$ac_optarg ;;
+#        -P | --parallelism) P=$ac_optarg ;;
+#        -M ) M=$ac_optarg ;;
+#        -W ) W=$ac_optarg ;;
+#        -N ) N=$ac_optarg ;;
+#        -h | --help) Usage ; exit 0 ;;
+#        #*) Usage ; echo "Unknown option $1" ; exit 1 ;;
+#        #*) Usage ; echo "Unknown option $1" ; exit 1 ;;
+#    esac
+#
+#    ${ac_shift}
+#    shift
+#done
 
 #echo "args $* version :$v P :$P M :$M N: $N W :$W" 
+echo "args $* " 
 
 ###################################################################################
 # Exectue stream mem test
 ###################################################################################
-
-for i in `seq 1 $N`;do 
-
-    echo "Stream Version V$v Core$P Memory$M \n"
-    if [ $P -eq 1 ];then
-        ./stream.${arch} $*
-        #numactl -C 0 --localalloc ./stream $*
-        sleep 10
-    fi
-
-    if [ $P == ${max_core_num} ];then
-        ./stream.${arch} $*
-        #numactl --cpunodebind=0,1,2,3 --localalloc ./stream $*
-        sleep 10
-    fi
-
-done
+echo "Stream Version V$v Core$P Memory$M \n"
+    ./stream.${arch} $*
+    #numactl --cpunodebind=0,1,2,3 --localalloc ./stream $*
+    sleep 10
 
