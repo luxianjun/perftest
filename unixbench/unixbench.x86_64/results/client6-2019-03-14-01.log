@@ -1,0 +1,121 @@
+
+########################################################
+System Call Overhead -- 1 copy
+==> "/root/perftest/unixbench/unixbench.x86_64/pgms/syscall" 10 2>&1 >> "/root/perftest/unixbench/unixbench.x86_64/results/client6-2019-03-14-01.log"
+
+#### Pass 1
+
+
+# COUNT0: 7071969
+# COUNT1: 1
+# COUNT2: lps
+# elapsed: 10.002611
+# pid: 9185
+# status: 0
+
+#### Pass 2
+
+
+# COUNT0: 7112428
+# COUNT1: 1
+# COUNT2: lps
+# elapsed: 10.002559
+# pid: 9195
+# status: 0
+
+#### Pass 3
+
+
+# COUNT0: 7128769
+# COUNT1: 1
+# COUNT2: lps
+# elapsed: 10.002575
+# pid: 9205
+# status: 0
+
+#### Pass 4
+
+
+# COUNT0: 7114176
+# COUNT1: 1
+# COUNT2: lps
+# elapsed: 10.002628
+# pid: 9222
+# status: 0
+
+#### Pass 5
+
+
+# COUNT0: 7057064
+# COUNT1: 1
+# COUNT2: lps
+# elapsed: 10.002526
+# pid: 9232
+# status: 0
+
+#### Pass 6
+
+
+# COUNT0: 7130445
+# COUNT1: 1
+# COUNT2: lps
+# elapsed: 10.002527
+# pid: 9241
+# status: 0
+
+#### Pass 7
+
+
+# COUNT0: 7111079
+# COUNT1: 1
+# COUNT2: lps
+# elapsed: 10.002536
+# pid: 9250
+# status: 0
+
+#### Pass 8
+
+
+# COUNT0: 7114545
+# COUNT1: 1
+# COUNT2: lps
+# elapsed: 10.004023
+# pid: 9273
+# status: 0
+
+#### Pass 9
+
+
+# COUNT0: 7111457
+# COUNT1: 1
+# COUNT2: lps
+# elapsed: 10.002622
+# pid: 9290
+# status: 0
+
+#### Pass 10
+
+
+# COUNT0: 7112183
+# COUNT1: 1
+# COUNT2: lps
+# elapsed: 10.002526
+# pid: 9299
+# status: 0
+
+*Dump score:    7057064.0
+*Dump score:    7071969.0
+*Dump score:    7111079.0
+Count score:    7111457.0
+Count score:    7112183.0
+Count score:    7112428.0
+Count score:    7114176.0
+Count score:    7114545.0
+Count score:    7128769.0
+Count score:    7130445.0
+
+>>>> Results of 1 copy
+>>>> score: 711573.249282592
+>>>> time: 10.00278
+>>>> iterations: 7
+
