@@ -102,6 +102,9 @@ class TaiShan_Test(cmd.Cmd):
 
     def do_exit(self, code):
         exit(code)
+    
+    def help_exit(self):
+        pass
 
     def precmd(self, line):
         cmd_list=[]
