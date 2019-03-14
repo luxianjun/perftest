@@ -4,7 +4,7 @@ import time
 import os,cmd,sys
 import subprocess
 
-bench=['cpu','stream','fio','iperf','ltp','unixbench']
+bench=['exit','cpu','stream','fio','iperf','ltp','unixbench']
 prj_path=os.getcwd()
 
 class TaiShan_Test(cmd.Cmd):
@@ -99,6 +99,9 @@ class TaiShan_Test(cmd.Cmd):
 
     def emptyline(self):
         pass
+
+    def do_exit(self, code):
+        exit(code)
 
     def precmd(self, line):
         cmd_list=[]
