@@ -4,7 +4,7 @@ import time
 import os,cmd,sys
 import subprocess
 
-bench=['exit','cpu','stream','fio','iperf','ltp','unixbench']
+bench=['exit','cpu','stream','fio','iperf','ltp','unixbench','sysbench']
 prj_path=os.getcwd()
 
 class TaiShan_Test(cmd.Cmd):
@@ -72,6 +72,12 @@ class TaiShan_Test(cmd.Cmd):
 
     def help_unixbench(self):
         self.__com_process__( 'unixbench', 'sh', '-h')
+
+    def do_sysbench(self, args):
+        self.__com_process__( 'sysbench', 'sh', args)
+
+    def help_sysbench(self):
+        self.__com_process__( 'sysbench', 'sh', '-h')
 
     def do_cpu(self, args):
         self.__com_process__( 'cpu', 'py', args)
