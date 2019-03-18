@@ -1764,7 +1764,7 @@ sub main {
         $tests = $index;
     }
 
-    preChecks();
+    #preChecks();
     my $systemInfo = getSystemInfo();
 
     # If the number of copies to run was not set, set it to 1
